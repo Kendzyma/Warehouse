@@ -1,0 +1,22 @@
+version: '1'
+services:
+  app:
+    container_name: cluster-data-warehouse
+    image: cluster-data-warehouse
+    build: ./
+    depends_on:
+      - mongodb
+    ports:
+      - "5200:9001"
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+volumes:
+  mongodb_data:
